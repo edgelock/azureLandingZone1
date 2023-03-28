@@ -1,4 +1,6 @@
-##Logged in to account
+# Bicep LandingZone Deployment
+
+## A fully functional example landingzone you can deploy with Bicep
 Connect-AzAccount
 ##Set Proper Sub
 Set-AzContext b4cce3de-40d0-4810-a7af-62faa3c54d59 
