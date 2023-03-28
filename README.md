@@ -1,6 +1,11 @@
 # Bicep LandingZone Deployment
 
 ## A fully functional example landingzone you can deploy with Bicep
+
+This project is an example landingzone that was deployed at the subscription level for demo purposes. This project should have a rundown of how to run the code used to deploy the various pieces underneath the subscriptions of the architecture diagram.
+
+
+
 Connect-AzAccount
 ##Set Proper Sub
 Set-AzContext b4cce3de-40d0-4810-a7af-62faa3c54d59 
