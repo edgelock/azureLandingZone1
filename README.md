@@ -8,8 +8,8 @@ This project is an example landingzone that was deployed at the subscription lev
 ## Steps To Execute Bicep Files
 
 1.Connect Account
-Connect-AzAccount
+Connect-AzAccount.
 2.Set Proper Sub
-Set-AzContext b4cce3de-40d0-4810-a7af-62faa3c54d59
+Set-AzContext b4cce3de-40d0-4810-a7af-62faa3c54d59.
 3.Execute Deployment Command 
-New-AzResourceGroupDeployment -ResourceGroupName devcaearg01 -TemplateFile .\vnet.bicep -Mode Incremental -verbose
+New-AzResourceGroupDeployment -ResourceGroupName devcaearg01 -TemplateFile .\vnet.bicep -Mode Incremental -verbose.
