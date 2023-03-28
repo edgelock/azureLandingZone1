@@ -4,7 +4,7 @@
 
 This project is an example landingzone that was deployed at the subscription level for demo purposes. This project should have a rundown of how to run the code used to deploy the various pieces underneath the subscriptions of the architecture diagram.
 
-![Copy DiagragmLZ - Core with AzFW](https://user-images.githubusercontent.com/44417754/228345712-755beebd-3e7e-4a6f-bd0b-13c391b7bae7.jpg)
+![Copy DiagragmLZ - Core with AzFW](https://user-images.githubusercontent.com/44417754/228346504-728069a8-bc86-42c9-a09f-23ce0e9734e9.jpeg)
 
 
 ## Steps To Execute Bicep Files
