@@ -7,7 +7,7 @@ This project is an example landingzone that was deployed at the subscription lev
 
 ## Steps To Execute Bicep Files
 
-1.Connect Account
+1. Connect Account
 >Connect-AzAccount
 2.Set Proper Sub
 >Set-AzContext b4cce3de-40d0-4810-a7af-62faa3c54d59
