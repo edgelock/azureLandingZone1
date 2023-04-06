@@ -1,47 +1,44 @@
 // //Logged in to account
 // Connect-AzAccount
 // // Set Proper Sub
-// Set-AzContext b4cce3de-40d0-4810-a7af-62faa3c54d59 
+// Set-AzContext e821185b-e514-41aa-97b4-08efa5e61151 
 // // Deployment Command:
-// New-AzResourceGroupDeployment -ResourceGroupName devcaearg01 -TemplateFile C:\bicepStuff\LifeSpeakLZ\devSub\vnet.bicep -Mode Incremental -verbose
+// New-AzResourceGroupDeployment -ResourceGroupName qacaearg01 -TemplateFile .\vnet.bicep -Mode Incremental -verbose
 
 param location string = resourceGroup().location
 
 resource vnet 'Microsoft.Network/virtualNetworks@2021-08-01' = {
-  name: 'devcaeanet01'
+  name: 'qacaeanet01'
   location: location
   properties: {
-    virtualNetworkPeerings: [
-      
-    ]
     addressSpace: {
       addressPrefixes: [
-        '10.140.96.0/21'
+        '10.140.32.0/21'
       ]
     }
   }
 }
 
-resource dmz 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
+resource subnet1 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
   parent: vnet
   name: 'dmz'
   properties: {
-    addressPrefix: '10.140.96.0/24'
+    addressPrefix: '10.140.32.0/24'
     networkSecurityGroup: {
-      id: dmznsg.id
+      id: nsg1.id
     }
   }
 
 }
 
-resource app 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
+resource subnet2 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
   parent: vnet
   name: 'app'
   dependsOn: [
-    dmz
+    subnet1
   ]
   properties: {
-    addressPrefix: '10.140.97.0/24'
+    addressPrefix: '10.140.33.0/24'
     networkSecurityGroup: {
       id: nsg2.id
     }
@@ -49,14 +46,14 @@ resource app 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
 
 }
 
-resource sql 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
+resource subnet3 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
   parent: vnet
   name: 'sql'
   dependsOn: [
-    app
+    subnet2
   ]
   properties: {
-    addressPrefix: '10.140.98.0/24'
+    addressPrefix: '10.140.34.0/24'
     networkSecurityGroup: {
       id: nsg3.id
     }
@@ -64,14 +61,14 @@ resource sql 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
 
 }
 
-resource sqlmi 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
+resource subnet4 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
   parent: vnet
   name: 'sqlmi'
   dependsOn: [
-    sql
+    subnet3
   ]
   properties: {
-    addressPrefix: '10.140.99.0/24'
+    addressPrefix: '10.140.35.0/24'
     networkSecurityGroup:{
       id: nsg4.id
     }
@@ -79,28 +76,28 @@ resource sqlmi 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
 
 }
 
-resource PrivateEndpoint 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
+resource subnet5 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
   parent: vnet
   name: 'PrivateEndpoint'
   dependsOn: [
-    sqlmi
+    subnet4
   ]
   properties: {
-    addressPrefix: '10.140.100.0/24'
+    addressPrefix: '10.140.36.0/24'
     networkSecurityGroup: {
       id: nsg5.id
     }
   }
 
 }
-resource AppServices 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
+resource subnet6 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
   parent: vnet
   name: 'AppServices'
   dependsOn: [
-    PrivateEndpoint
+    subnet5
   ]
   properties: {
-    addressPrefix: '10.140.101.0/24'
+    addressPrefix: '10.140.37.0/24'
     networkSecurityGroup: {
       id: nsg6.id
     }
@@ -108,7 +105,7 @@ resource AppServices 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
 
 }
 
-resource dmznsg 'Microsoft.Network/networkSecurityGroups@2021-08-01' = {
+resource nsg1 'Microsoft.Network/networkSecurityGroups@2021-08-01' = {
   location: location
   name: 'dmznsg'
   
